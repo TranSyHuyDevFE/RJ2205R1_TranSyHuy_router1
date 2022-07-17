@@ -1,9 +1,12 @@
 import React from "react";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-export default function LoginForm(props) {
+export default function LoginForm() {
   let navigate = useNavigate();
-  let { acount } = props;
+  const acount = {
+    user: "admin@gmail.com",
+    pass: "letmein",
+  };
   const [form, setForm] = useState({});
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -12,12 +15,12 @@ export default function LoginForm(props) {
       [name]: value,
     });
   };
-  const handeleSubmit = () => {
-    if (form.name !== acount.name && form.pass !== acount.pass) {
+  const handeleSubmit = (e) => {
+    if (form.user !== acount.user || form.pass !== acount.pass) {
       alert("no!");
       return;
     }
-    navigate(`/home`);
+    navigate(`/home`, { state: { userID: form.user } });
     console.log(form);
   };
   return (
